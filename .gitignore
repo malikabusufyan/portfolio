@@ -1,0 +1,28 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+logs/
+*.log
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Source personal documents (contain PII - CV has DOB/passport/address).
+# The app uses the copies under client/public/images instead.
+/*.pdf
+/*.jpg
+/*.jpeg
+/*.png
+/*.webp
