@@ -37,52 +37,6 @@ app.use(express.json());
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
-// TEMPORARY diagnostic route for the SMTP IPv4/IPv6 investigation - remove once resolved.
-app.get("/api/_diag/dns", async (req, res) => {
-  const dnsPromises = require("dns").promises;
-  const net = require("net");
-  const result = { checks: [] };
-
-  try {
-    const t0 = Date.now();
-    const v4 = await dnsPromises.resolve4("smtp.gmail.com");
-    result.resolve4 = { ok: true, addresses: v4, ms: Date.now() - t0 };
-  } catch (err) {
-    result.resolve4 = { ok: false, error: err.message };
-  }
-
-  try {
-    const t0 = Date.now();
-    const v6 = await dnsPromises.resolve6("smtp.gmail.com");
-    result.resolve6 = { ok: true, addresses: v6, ms: Date.now() - t0 };
-  } catch (err) {
-    result.resolve6 = { ok: false, error: err.message };
-  }
-
-  if (result.resolve4.ok) {
-    const ip = result.resolve4.addresses[0];
-    const t0 = Date.now();
-    await new Promise((resolve) => {
-      const socket = net.connect({ host: ip, port: 465, timeout: 8000 }, () => {
-        result.tcpConnect = { ok: true, ip, ms: Date.now() - t0 };
-        socket.destroy();
-        resolve();
-      });
-      socket.on("error", (err) => {
-        result.tcpConnect = { ok: false, ip, error: err.message, ms: Date.now() - t0 };
-        resolve();
-      });
-      socket.on("timeout", () => {
-        result.tcpConnect = { ok: false, ip, error: "timeout", ms: Date.now() - t0 };
-        socket.destroy();
-        resolve();
-      });
-    });
-  }
-
-  res.json(result);
-});
-
 app.use("/api/auth", authRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/messages", messageRoutes);
