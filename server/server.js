@@ -1,8 +1,14 @@
 require("dotenv").config();
 require("express-async-errors");
+const dns = require("dns");
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./src/config/db");
+
+// Render's outbound network doesn't reliably route IPv6; Node's resolver sometimes
+// hands back an AAAA record for smtp.gmail.com, which then hangs until it times out.
+// Preferring IPv4 avoids that dead end for all outbound connections (SMTP, etc.).
+dns.setDefaultResultOrder("ipv4first");
 
 const buildCrudRouter = require("./src/routes/crudFactory");
 const Experience = require("./src/models/Experience");

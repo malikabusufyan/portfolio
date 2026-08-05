@@ -14,6 +14,10 @@ function getTransporter() {
   transporter = nodemailer.createTransport({
     service: "gmail",
     auth: { user, pass },
+    family: 4, // avoid hanging on unreachable IPv6 routes on some hosts (e.g. Render)
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 10000,
   });
   return transporter;
 }
