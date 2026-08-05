@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../api/client";
+import ImageUpload from "./ImageUpload";
 
 // Generic CRUD screen driven by a field config, used for Projects/Skills/Experience.
 export default function ResourceManager({ title, endpoint, fields, emptyItem, renderSummary }) {
@@ -116,7 +117,12 @@ export default function ResourceManager({ title, endpoint, fields, emptyItem, re
               <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
                 {field.label}
               </label>
-              {field.type === "textarea" || field.type === "list" ? (
+              {field.type === "image" ? (
+                <ImageUpload
+                  value={form[field.name] ?? ""}
+                  onChange={(url) => handleFieldChange(field, url)}
+                />
+              ) : field.type === "textarea" || field.type === "list" ? (
                 <textarea
                   rows={field.type === "list" ? 4 : 3}
                   value={form[field.name] ?? ""}

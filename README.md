@@ -7,11 +7,12 @@ touching code or redeploying. The contact form on the public site emails submiss
 malikabusufyan@gmail.com and also stores them for the admin to review.
 
 ## Stack
-- **Client**: React (Vite), React Router, Tailwind CSS, Axios
+- **Client**: React (Vite), React Router, Tailwind CSS, Axios, Motion (animations)
 - **Server**: Node.js, Express, Mongoose
 - **Database**: MongoDB Atlas
 - **Auth**: JWT + bcrypt (single admin account)
 - **Mail**: Nodemailer via Gmail SMTP (App Password)
+- **Image hosting**: Cloudinary (logo uploads from the admin dashboard)
 
 ## 1. Create a MongoDB Atlas database
 1. Sign up / log in at https://cloud.mongodb.com and create a free (M0) cluster.
@@ -28,19 +29,24 @@ malikabusufyan@gmail.com and also stores them for the admin to review.
    and copy the 16-character password it generates. This — not your normal Gmail password — is what
    goes in `GMAIL_APP_PASSWORD`.
 
-## 3. Configure environment variables
+## 3. Create a Cloudinary account (for logo uploads in the admin dashboard)
+1. Sign up free at https://cloudinary.com.
+2. On the Dashboard home page, copy your **Cloud name**, **API Key**, and **API Secret**.
+3. These go in `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`.
+
+## 4. Configure environment variables
 ```
 cd server
 cp .env.example .env
 # fill in MONGODB_URI, JWT_SECRET (any long random string), ADMIN_EMAIL, ADMIN_PASSWORD,
-# GMAIL_USER, GMAIL_APP_PASSWORD
+# GMAIL_USER, GMAIL_APP_PASSWORD, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
 
 cd ../client
 cp .env.example .env
 # VITE_API_URL=http://localhost:5000/api for local dev
 ```
 
-## 4. Install, seed, and run
+## 5. Install, seed, and run
 ```
 # Server
 cd server
@@ -58,12 +64,13 @@ Visit `http://localhost:5173` for the public site and `http://localhost:5173/adm
 with the `ADMIN_EMAIL` / `ADMIN_PASSWORD` you set in `server/.env`.
 
 ## Editing content after launch
-- **Projects, Skills, Experience**: use the admin dashboard — no redeploy needed, changes are live
-  immediately.
-- **Education, Publications, Certifications, Achievements**: currently seeded from
-  `server/src/seed/seed.js`. They're served from the same database/API as everything else, so admin
-  screens for them can be added later using the same `ResourceManager` pattern used for Projects/Skills
-  (see `client/src/admin/components/ResourceManager.jsx`), or edited directly in Atlas.
+- **Projects, Skills, Experience, Education**: use the admin dashboard — no redeploy needed, changes
+  are live immediately. Experience and Education logos have a real upload button (stored on
+  Cloudinary); paste a URL only if you'd rather link an existing image.
+- **Publications, Certifications, Achievements**: currently seeded from `server/src/seed/seed.js`.
+  They're served from the same database/API as everything else, so admin screens for them can be added
+  later using the same `ResourceManager` pattern (see `client/src/admin/components/ResourceManager.jsx`),
+  or edited directly in Atlas.
 - **Contact messages**: view, mark read, or delete from `/admin/messages`.
 
 ## Deployment

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../api/client";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Background from "../components/Background";
 import Hero from "../components/sections/Hero";
 import About from "../components/sections/About";
 import Experience from "../components/sections/Experience";
@@ -65,7 +66,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen text-gray-900 dark:text-gray-100">
+      <Background />
       <Navbar />
       <Hero />
       <About />

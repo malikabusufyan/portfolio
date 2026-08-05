@@ -16,6 +16,7 @@ const Achievement = require("./src/models/Achievement");
 const authRoutes = require("./src/routes/auth");
 const contactRoutes = require("./src/routes/contact");
 const messageRoutes = require("./src/routes/messages");
+const uploadRoutes = require("./src/routes/upload");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/auth", authRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/upload", uploadRoutes);
 
 app.use("/api/experience", buildCrudRouter(Experience));
 app.use("/api/education", buildCrudRouter(Education));

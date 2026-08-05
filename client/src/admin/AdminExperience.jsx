@@ -7,7 +7,7 @@ const fields = [
   { name: "startDate", label: "Start date", type: "text", placeholder: "May 2022" },
   { name: "endDate", label: "End date (blank = Present)", type: "text", placeholder: "Dec 2023" },
   { name: "type", label: "Type", type: "select", options: ["work", "internship"] },
-  { name: "logo", label: "Logo path (e.g. /images/logo-tcs.png)", type: "text" },
+  { name: "logo", label: "Company logo", type: "image" },
   { name: "bullets", label: "Bullet points (one per line)", type: "list" },
   { name: "order", label: "Sort order", type: "number" },
 ];

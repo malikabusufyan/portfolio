@@ -7,6 +7,7 @@ import AdminLogin from "./admin/AdminLogin";
 import AdminLayout from "./admin/AdminLayout";
 import AdminDashboard from "./admin/AdminDashboard";
 import AdminExperience from "./admin/AdminExperience";
+import AdminEducation from "./admin/AdminEducation";
 import AdminSkills from "./admin/AdminSkills";
 import AdminProjects from "./admin/AdminProjects";
 import AdminMessages from "./admin/AdminMessages";
@@ -22,6 +23,7 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
             <Route path="experience" element={<AdminExperience />} />
+            <Route path="education" element={<AdminEducation />} />
             <Route path="skills" element={<AdminSkills />} />
             <Route path="projects" element={<AdminProjects />} />
             <Route path="messages" element={<AdminMessages />} />

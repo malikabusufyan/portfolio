@@ -1,41 +1,76 @@
+import { motion } from "motion/react";
+
 const SOCIALS = [
   { label: "GitHub", href: "https://github.com/malikabusufyan" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/abusufyanmalik/" },
   { label: "GrabCAD", href: "https://grabcad.com/abu.sufyan.malik-1" },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0 },
+};
+
 export default function Hero() {
   return (
-    <section id="top" className="mx-auto flex max-w-6xl flex-col-reverse items-center gap-10 px-6 pb-20 pt-16 md:flex-row md:pt-24">
-      <div className="flex-1 text-center md:text-left">
-        <p className="text-sm font-medium uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+    <section
+      id="top"
+      className="mx-auto flex max-w-6xl flex-col-reverse items-center gap-10 px-6 pb-20 pt-16 md:flex-row md:pt-24"
+    >
+      <motion.div
+        initial="hidden"
+        animate="show"
+        variants={{ show: { transition: { staggerChildren: 0.12 } } }}
+        className="flex-1 text-center md:text-left"
+      >
+        <motion.p
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+          className="text-sm font-medium uppercase tracking-widest text-indigo-600 dark:text-indigo-400"
+        >
           Full Stack (MERN) Developer
-        </p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
+        </motion.p>
+        <motion.h1
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+          className="mt-3 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white"
+        >
           Hi, I&apos;m Abu Sufyan Malik
-        </h1>
-        <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-gray-600 md:mx-0 dark:text-gray-300">
+        </motion.h1>
+        <motion.p
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-gray-600 md:mx-0 dark:text-gray-300"
+        >
           Web developer with experience as an Assistant System Engineer and ML Data Associate, building
           with HTML, CSS, JavaScript, Python, Node.js, React, and MongoDB. I also bring a year of
           Computer Aided Design experience and a strong habit of clean, well-documented, Agile work.
-        </p>
+        </motion.p>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
+        <motion.div
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+          className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start"
+        >
           <a
             href="#contact"
-            className="rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500"
+            className="rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm shadow-indigo-600/20 transition hover:-translate-y-0.5 hover:bg-indigo-500 hover:shadow-lg hover:shadow-indigo-600/30"
           >
             Get in touch
           </a>
           <a
             href="#projects"
-            className="rounded-full border border-gray-300 px-6 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
+            className="rounded-full border border-gray-300 px-6 py-2.5 text-sm font-semibold text-gray-700 transition hover:-translate-y-0.5 hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-200 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
           >
             View projects
           </a>
-        </div>
+        </motion.div>
 
-        <div className="mt-6 flex justify-center gap-5 md:justify-start">
+        <motion.div
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+          className="mt-6 flex justify-center gap-5 md:justify-start"
+        >
           {SOCIALS.map((s) => (
             <a
               key={s.label}
@@ -47,16 +82,24 @@ export default function Hero() {
               {s.label}
             </a>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div className="shrink-0">
-        <img
-          src="/images/profile.jpg"
-          alt="Abu Sufyan Malik"
-          className="h-48 w-48 rounded-full object-cover ring-4 ring-white shadow-xl sm:h-60 sm:w-60 dark:ring-gray-800"
-        />
-      </div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+        className="shrink-0"
+      >
+        <div className="relative">
+          <div className="absolute inset-0 -z-10 rounded-full bg-linear-to-br from-indigo-400 to-fuchsia-400 opacity-40 blur-2xl" />
+          <img
+            src="/images/profile.jpg"
+            alt="Abu Sufyan Malik"
+            className="h-48 w-48 rounded-full object-cover ring-4 ring-white shadow-xl sm:h-60 sm:w-60 dark:ring-gray-800"
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }

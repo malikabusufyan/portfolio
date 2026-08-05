@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
 const LINKS = [
   { href: "#about", label: "About" },
@@ -16,7 +17,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200/80 bg-white/80 backdrop-blur dark:border-gray-800/80 dark:bg-gray-950/80">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
+        <a href="#top" className="font-heading text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
           Abu Sufyan Malik
         </a>
 
@@ -25,9 +26,10 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm font-medium text-gray-600 transition hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400"
+                className="group relative text-sm font-medium text-gray-600 transition hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400"
               >
                 {link.label}
+                <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-indigo-600 transition-all duration-300 group-hover:w-full dark:bg-indigo-400" />
               </a>
             </li>
           ))}
@@ -41,28 +43,42 @@ export default function Navbar() {
         >
           <span className="sr-only">Menu</span>
           <div className="space-y-1">
-            <span className="block h-0.5 w-5 bg-current" />
-            <span className="block h-0.5 w-5 bg-current" />
-            <span className="block h-0.5 w-5 bg-current" />
+            <motion.span
+              animate={{ rotate: open ? 45 : 0, y: open ? 6 : 0 }}
+              className="block h-0.5 w-5 origin-center bg-current"
+            />
+            <motion.span animate={{ opacity: open ? 0 : 1 }} className="block h-0.5 w-5 bg-current" />
+            <motion.span
+              animate={{ rotate: open ? -45 : 0, y: open ? -6 : 0 }}
+              className="block h-0.5 w-5 origin-center bg-current"
+            />
           </div>
         </button>
       </nav>
 
-      {open && (
-        <ul className="flex flex-col gap-1 border-t border-gray-200 px-6 pb-4 md:hidden dark:border-gray-800">
-          {LINKS.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block py-2 text-sm font-medium text-gray-600 dark:text-gray-300"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="flex flex-col gap-1 overflow-hidden border-t border-gray-200 px-6 md:hidden dark:border-gray-800"
+          >
+            {LINKS.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="block py-2 text-sm font-medium text-gray-600 dark:text-gray-300"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
