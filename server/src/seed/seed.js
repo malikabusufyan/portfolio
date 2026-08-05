@@ -65,7 +65,7 @@ const experiences = [
     startDate: "Aug 2019",
     endDate: "Jan 2020",
     type: "internship",
-    logo: "",
+    logo: "/images/logo-eleation.webp",
     bullets: [
       'Completed the project "Design and Analysis of Engine Block Using Solidworks and Ansys".',
       "Learned meshing, and structural, thermal, and modal analysis.",
@@ -80,7 +80,7 @@ const experiences = [
     startDate: "Dec 2019",
     endDate: "Jan 2020",
     type: "internship",
-    logo: "",
+    logo: "/images/logo-nitw.png",
     bullets: [
       'Completed the project "Elastic Modulus Measurement of Solids Using Ultrasonic Technique".',
       "Learned non-destructive testing techniques and MATLAB.",
@@ -94,7 +94,7 @@ const experiences = [
     startDate: "Jul 2019",
     endDate: "Aug 2019",
     type: "internship",
-    logo: "",
+    logo: "/images/logo-hmt.jpg",
     bullets: [
       "Explored casting and manufacturing processes at HMT Machine Tools Limited.",
       'Completed a mini-project titled "Study of Casting and Manufacturing Process in HMT Machine Tools Limited".',
@@ -117,7 +117,7 @@ const education = [
     institution: "Coding Ninjas",
     duration: "2022 - 2023",
     grade: "",
-    logo: "",
+    logo: "/images/logo-coding-ninjas.jpg",
     order: 2,
   },
   {
@@ -130,18 +130,18 @@ const education = [
   },
   {
     degree: "Senior Secondary Certificate",
-    institution: "Central Board of Secondary Education",
+    institution: "Bright Way College, Lucknow (CBSE)",
     duration: "2015",
     grade: "78.6%",
-    logo: "",
+    logo: "/images/logo-brightway.jpg",
     order: 4,
   },
   {
     degree: "Higher Secondary Certificate",
-    institution: "Central Board of Secondary Education",
+    institution: "Bright Way College, Lucknow (CBSE)",
     duration: "2015",
     grade: "8.8/10 CGPA",
-    logo: "",
+    logo: "/images/logo-brightway.jpg",
     order: 5,
   },
 ];
