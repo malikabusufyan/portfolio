@@ -79,7 +79,9 @@ with the `ADMIN_EMAIL` / `ADMIN_PASSWORD` you set in `server/.env`.
   `sync: false` in the Render dashboard.
 - **Client → Vercel/Netlify**: point either at the `client/` directory, build command `npm run build`,
   output directory `dist`. Set `VITE_API_URL` to your deployed API's URL (e.g.
-  `https://portfolio-api.onrender.com/api`).
+  `https://portfolio-api.onrender.com/api`). `client/vercel.json` rewrites all paths to `index.html` so
+  client-side routes like `/admin/login` don't 404 on direct load/refresh — Netlify needs the equivalent
+  via a `client/public/_redirects` file containing `/* /index.html 200` if you deploy there instead.
 - Update `CLIENT_URL` in the server's env vars to your deployed client URL so CORS allows it.
 
 ## Project structure
