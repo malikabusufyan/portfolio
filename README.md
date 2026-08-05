@@ -11,7 +11,7 @@ malikabusufyan@gmail.com and also stores them for the admin to review.
 - **Server**: Node.js, Express, Mongoose
 - **Database**: MongoDB Atlas
 - **Auth**: JWT + bcrypt (single admin account)
-- **Mail**: Nodemailer via Gmail SMTP (App Password)
+- **Mail**: Resend (HTTP email API — see note below on why not raw SMTP)
 - **Image hosting**: Cloudinary (logo uploads from the admin dashboard)
 
 ## 1. Create a MongoDB Atlas database
@@ -22,12 +22,17 @@ malikabusufyan@gmail.com and also stores them for the admin to review.
    `mongodb+srv://<user>:<password>@<cluster>.mongodb.net/?retryWrites=true&w=majority`
    Add a database name before the `?`, e.g. `.../portfolio?retryWrites=true...`.
 
-## 2. Create a Gmail App Password (for the contact form)
-1. On the Google Account used to receive messages (malikabusufyan@gmail.com), turn on
-   **2-Step Verification**: https://myaccount.google.com/security
-2. Go to https://myaccount.google.com/apppasswords, create an app password (name it e.g. "Portfolio"),
-   and copy the 16-character password it generates. This — not your normal Gmail password — is what
-   goes in `GMAIL_APP_PASSWORD`.
+## 2. Create a Resend account (for the contact form)
+1. Sign up free at https://resend.com.
+2. Go to **API Keys** in the dashboard → **Create API Key** → copy it into `RESEND_API_KEY`.
+3. `RESEND_FROM_EMAIL` can stay as the default `onboarding@resend.dev` sender — no domain
+   verification needed to get started. (Verify your own domain in Resend later if you want the
+   "from" address to look like it's coming from your own domain instead.)
+
+> **Why Resend instead of Gmail SMTP?** Render's free tier (and most free PaaS tiers) blocks
+> outbound SMTP ports as an anti-spam measure — confirmed by testing a raw TCP connection to
+> `smtp.gmail.com:465` from a deployed instance, which timed out with no response. Resend sends
+> over normal HTTPS, so it isn't affected.
 
 ## 3. Create a Cloudinary account (for logo uploads in the admin dashboard)
 1. Sign up free at https://cloudinary.com.
@@ -39,7 +44,7 @@ malikabusufyan@gmail.com and also stores them for the admin to review.
 cd server
 cp .env.example .env
 # fill in MONGODB_URI, JWT_SECRET (any long random string), ADMIN_EMAIL, ADMIN_PASSWORD,
-# GMAIL_USER, GMAIL_APP_PASSWORD, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+# RESEND_API_KEY, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
 
 cd ../client
 cp .env.example .env
