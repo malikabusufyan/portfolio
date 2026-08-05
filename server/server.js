@@ -20,9 +20,11 @@ const uploadRoutes = require("./src/routes/upload");
 
 const app = express();
 
+const clientUrl = (process.env.CLIENT_URL || "http://localhost:5173").replace(/\/+$/, "");
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: clientUrl,
   })
 );
 app.use(express.json());
